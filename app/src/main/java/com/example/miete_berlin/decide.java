@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -68,7 +70,8 @@ public class decide extends AppCompatActivity {
         help.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CharSequence text;
+                String text = "";
+                String dialog_titel = "";
                 int duration = Toast.LENGTH_LONG;
                 Toast toast;
                 switch (stage) {
@@ -79,20 +82,22 @@ public class decide extends AppCompatActivity {
                         break;
                     case 5:
                         text = "Nach dem Berliner Mietspiegel sind unter einer Sammelheizung alle Heizungsarten zu verstehen, bei denen die Wärme- und Energieerzeugung von einer zentralen Stelle aus geschieht. Eine Etagen- oder Wohnungsheizung (Gas, Öl, Elektro), die sämtliche Wohnräume angemessen erwärmt, ist einer Sammelheizung gleichzusetzen.";
-                        toast = Toast.makeText(getApplicationContext(), text, duration);
-                        toast.show();
+                        dialog_titel = "Sammelheizung";
                         break;
                     case 10:
                         text = "Als Sanitäteinrichtung bezeichnet man eine Toilette.";
-                        toast = Toast.makeText(getApplicationContext(), text, duration);
-                        toast.show();
+                        dialog_titel = "Sanitäteinrichtung";
                         break;
                     case 12:
                         text = "Der Energieverbrauchskennwert bzw. Stromverbrauchskennwert gibt den gemessenen spezifischen Energieverbrauch in Kilowattstunden pro Jahr und m² Fläche (Abk. kWh/(a m²)) eines Gebäudes wieder und soll das Gebäude energetisch bewerten. Der Kennwert gilt immer für das Gebäude als Ganzes.";
-                        toast = Toast.makeText(getApplicationContext(), text, duration);
-                        toast.show();
+                        dialog_titel = "Energieverbrauchskennwert";
                         break;
 
+                }
+                if(!text.isEmpty()){
+                    CustomDialogClass cdd=new CustomDialogClass(decide.this, text, dialog_titel);
+                    cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    cdd.show();
                 }
             }
         });
@@ -122,37 +127,41 @@ public class decide extends AppCompatActivity {
                         ((MietDaten) getApplication()).setWohnlage(1);
                         break;
                     case 4:
-                        ((MietDaten) getApplication()).setSozialwohnung(true);
+                        ((MietDaten) getApplication()).setSozialwohnung(1);
                         break;
                     case 5:
-                        ((MietDaten) getApplication()).setSammelheizung(true);
+                        ((MietDaten) getApplication()).setSammelheizung(1);
                         break;
                     case 6:
-                        ((MietDaten) getApplication()).setBad(true);
+                        ((MietDaten) getApplication()).setBad(1);
                         break;
                     case 7:
-                        ((MietDaten) getApplication()).setMehr_als_zwei_wohnungen(true);
+                        ((MietDaten) getApplication()).setMehr_als_zwei_wohnungen(1);
                         break;
                     case 8:
-                        ((MietDaten) getApplication()).setAufzug(true);
+                        ((MietDaten) getApplication()).setAufzug(1);
                         break;
                     case 9:
-                        ((MietDaten) getApplication()).setEinbauküche(true);
+                        ((MietDaten) getApplication()).setEinbauküche(1);
                         break;
                     case 10:
-                        ((MietDaten) getApplication()).setSanitaereinrichtung(true);
+                        ((MietDaten) getApplication()).setSanitaereinrichtung(1);
                         break;
                     case 11:
-                        ((MietDaten) getApplication()).setBodenbelag(true);
+                        ((MietDaten) getApplication()).setBodenbelag(1);
                         break;
                     case 12:
-                        ((MietDaten) getApplication()).setEnergiekennwert(true);
+                        ((MietDaten) getApplication()).setEnergiekennwert(1);
                         break;
                 }
-                if(stage == 12 || gleichweiter){
+                if (gleichweiter){
+                    finish();
+                } else if(stage == 12){
                     Intent theIntent = new Intent(decide.this, finish.class);
                     startActivity(theIntent);
-                } else {
+                    stage = 0;
+                    finish();
+                } else  {
                     stage++;
                     setUp();
                 }
@@ -167,37 +176,41 @@ public class decide extends AppCompatActivity {
                         ((MietDaten) getApplication()).setWohnlage(3);
                         break;
                     case 4:
-                        ((MietDaten) getApplication()).setSozialwohnung(false);
+                        ((MietDaten) getApplication()).setSozialwohnung(0);
                         break;
                     case 5:
-                        ((MietDaten) getApplication()).setSammelheizung(false);
+                        ((MietDaten) getApplication()).setSammelheizung(0);
                         break;
                     case 6:
-                        ((MietDaten) getApplication()).setBad(false);
+                        ((MietDaten) getApplication()).setBad(0);
                         break;
                     case 7:
-                        ((MietDaten) getApplication()).setMehr_als_zwei_wohnungen(false);
+                        ((MietDaten) getApplication()).setMehr_als_zwei_wohnungen(0);
                         break;
                     case 8:
-                        ((MietDaten) getApplication()).setAufzug(false);
+                        ((MietDaten) getApplication()).setAufzug(0);
                         break;
                     case 9:
-                        ((MietDaten) getApplication()).setEinbauküche(false);
+                        ((MietDaten) getApplication()).setEinbauküche(0);
                         break;
                     case 10:
-                        ((MietDaten) getApplication()).setSanitaereinrichtung(false);
+                        ((MietDaten) getApplication()).setSanitaereinrichtung(0);
                         break;
                     case 11:
-                        ((MietDaten) getApplication()).setBodenbelag(false);
+                        ((MietDaten) getApplication()).setBodenbelag(0);
                         break;
                     case 12:
-                        ((MietDaten) getApplication()).setEnergiekennwert(false);
+                        ((MietDaten) getApplication()).setEnergiekennwert(0);
                         break;
                 }
-                if(stage == 12 || gleichweiter){
+                if (gleichweiter){
+                    finish();
+                } else if(stage == 12){
                     Intent theIntent = new Intent(decide.this, finish.class);
                     startActivity(theIntent);
-                } else {
+                    stage = 0;
+                    finish();
+                } else  {
                     stage++;
                     setUp();
                 }
@@ -212,10 +225,14 @@ public class decide extends AppCompatActivity {
                         ((MietDaten) getApplication()).setWohnlage(2);
                         break;
                 }
-                if(stage == 12 || gleichweiter){
+                if (gleichweiter){
+                    finish();
+                } else if(stage == 12){
                     Intent theIntent = new Intent(decide.this, finish.class);
                     startActivity(theIntent);
-                } else {
+                    stage = 0;
+                    finish();
+                } else  {
                     stage++;
                     setUp();
                 }
@@ -225,35 +242,105 @@ public class decide extends AppCompatActivity {
         finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(stage == 3){
+                    if (view != null) {
+                        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                    }
+                }
                 finish_event();
             }
         });
     }
 
     private void finish_event() {
+        CharSequence text = "Die Zahl kann nicht leer sein!";
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast;
+        boolean normal = true;
+
         if(antwort.getText().toString().isEmpty()){
-            CharSequence text = "Die Zahl kann nicht leer sein!";
-            int duration = Toast.LENGTH_SHORT;
-            Toast toast = Toast.makeText(getApplicationContext(), text, duration);
+            toast = Toast.makeText(getApplicationContext(), text, duration);
             toast.show();
         } else {
+            double tmp;
             switch (stage){
                 case 1:
-                    ((MietDaten) getApplication()).setMietkosten(Double.parseDouble(antwort.getText().toString()));
-                    stage++;
-                    setUp();
+                    tmp = Double.parseDouble(antwort.getText().toString());
+                    if(tmp > 10 && tmp < 100000){
+                        ((MietDaten) getApplication()).setMietkosten(tmp);
+                    } else {
+                        text = "Diese Miete können wir uns nicht vorstellen.";
+                        toast = Toast.makeText(getApplicationContext(), text, duration);
+                        toast.show();
+                        antwort.setText("");
+                        normal = false;
+                    }
                     break;
                 case 2:
-                    ((MietDaten) getApplication()).setQm(Double.parseDouble(antwort.getText().toString()));
-                    stage++;
-                    setUp();
+                    tmp = Double.parseDouble(antwort.getText().toString());
+                    if(tmp > 2 && tmp < 5000){
+                        ((MietDaten) getApplication()).setQm(tmp);
+                    } else {
+                        text = "So eine Wohnung gibt es in Berlin nicht...";
+                        toast = Toast.makeText(getApplicationContext(), text, duration);
+                        toast.show();
+                        antwort.setText("");
+                        normal = false;
+                    }
+
                     break;
                 case 3:
-                    int jahr = Integer.parseInt(antwort.getText().toString());
-                    ((MietDaten) getApplication()).setJahr(3);
-                    stage++;
-                    setUp();
+                    int jahr;
+                    try {
+                        jahr = Integer.parseInt(antwort.getText().toString());
+                    } catch (Exception e){
+                        text = "Dieses Jahr kennen wir nicht";
+                        toast = Toast.makeText(getApplicationContext(), text, duration);
+                        toast.show();
+                        antwort.setText("");
+                        normal = false;
+                        break;
+                    }
+                    if(jahr < 1300) {
+                        text = "Deine Wohnung ist zu alt...";
+                        toast = Toast.makeText(getApplicationContext(), text, duration);
+                        toast.show();
+                        antwort.setText("");
+                        normal = false;
+                    }else if (jahr > 2013){
+                        text = "Das Mietdeckel Gesetzt gilt nur für Wohnungen, die vor dem 1. Januar 2014 bezugsfertig wurden.";
+                        toast = Toast.makeText(getApplicationContext(), text, duration);
+                        toast.show();
+                        antwort.setText("");
+                        normal = false;
+                    } else {
+                        if(jahr <= 1918){
+                            ((MietDaten) getApplication()).setJahr(1);
+                        } else if(jahr <= 1949){
+                            ((MietDaten) getApplication()).setJahr(2);
+                        } else if(jahr <= 1964){
+                            ((MietDaten) getApplication()).setJahr(3);
+                        } else if(jahr <= 1972){
+                            ((MietDaten) getApplication()).setJahr(4);
+                        } else if(jahr <= 1990){
+                            ((MietDaten) getApplication()).setJahr(5);
+                        } else if(jahr <= 2002){
+                            ((MietDaten) getApplication()).setJahr(6);
+                        } else if(jahr <= 2013){
+                            ((MietDaten) getApplication()).setJahr(7);
+                        }
+                    }
                     break;
+            }
+            if(gleichweiter && normal){
+                //Intent theIntent = new Intent(decide.this, finish.class);
+                //startActivity(theIntent);
+                stage = 0;
+                finish();
+            } else if(normal){
+                stage++;
+                setUp();
             }
         }
     }
@@ -284,7 +371,7 @@ public class decide extends AppCompatActivity {
                 help_setUp("Wie hoch ist deine Nettokaltmiete?",4,"1",4,"3",4,"2",0,"600", 0, 4, "");
                 break;
             case 2:
-                help_setUp("Wie gross ist dein Wohnraum (in qm)?",4,"1",4,"3",4,"2",0,"70", 0, 4, "");
+                help_setUp("Wie groß ist dein Wohnraum in qm(m²)?",4,"1",4,"3",4,"2",0,"70", 0, 4, "");
                 break;
             case 3:
                 help_setUp("Wann wurde dein Haus gebaut? Wenn du das Baujahr nicht genau kennst, schätze es.",4,"1",4,"3",4,"2",0,"1995", 0, 4, "");
@@ -293,7 +380,7 @@ public class decide extends AppCompatActivity {
                 help_setUp("Ist deine Wohnung eine Sozialwohnung?",0,"Ja",0,"Nein",4,"2",4,"", 4, 4, "");
                 break;
             case 5:
-                help_setUp("Hat meine Wohnung eine Sammelheizung?",0,"Ja",0,"Nein",4,"2",4,"", 4, 0, "Was ist eine Sammelheizung?");
+                help_setUp("Hat meine Wohnung eine Sammelheizung?",0,"Ja",0,"Nein",4,"2",4,"", 4, 0, "Sammelheizung?");
                 break;
             case 6:
                 help_setUp("Hat meine Wohnung ein Bad?",0,"Ja",0,"Nein",4,"2",4,"", 4, 4, "");
@@ -308,14 +395,25 @@ public class decide extends AppCompatActivity {
                 help_setUp("Hat meine Wohnung eine Einbauküche?",0,"Ja",0,"Nein",4,"2",4,"", 4, 4, "");
                 break;
             case 10:
-                help_setUp("Gibt es in meiner Wohnung eine hochwertige Sanitaereinrichtung?",0,"Ja",0,"Nein",4,"2",4,"", 4, 0, "Was ist eine Sanitäteinrichtung?");
+                help_setUp("Gibt es in meiner Wohnung eine hochwertige Sanitäreinrichtung?",0,"Ja",0,"Nein",4,"2",4,"", 4, 0, "Sanitäteinrichtung?");
                 break;
             case 11:
                 help_setUp("Gibt es in meiner Wohnung einen hochwertige Bodenbelag?",0,"Ja",0,"Nein",4,"2",4,"", 4, 4, "");
                 break;
             case 12:
-                help_setUp("Hat mein Haus einen Energiekennwert von mehr als 120kWh/m2a?",0,"Ja",0,"Nein",4,"2",4,"", 4, 0, "Wo finde ich meinen Energiekennwert?");
+                help_setUp("Hat mein Haus einen Energiekennwert von mehr als 120kWh/m² im Jahr?",0,"Ja",0,"Nein",4,"2",4,"", 4, 0, "Energiekennwert?");
                 break;
         }
+    }
+
+    @Override
+    public void finish() {
+        if (stage == 0 || gleichweiter){
+            super.finish();
+        } else {
+            stage--;
+            setUp();
+        }
+
     }
 }

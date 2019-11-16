@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">miete_berlin</string>
+    <string name="app_name">Mietdeckel</string>
+    <string name="rechnung">rechnung_placeholder</string>
 </resources>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0BE9CF"
-    android:padding="32dp"
+    android:padding="16dp"
     tools:context=".decide">
 
     <Button
@@ -66,12 +66,15 @@
     <Button
         android:id="@+id/finish"
         style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginRight="48dp"
-        android:layout_marginBottom="48dp"
-        android:background="@drawable/arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/rounded_corners"
+        android:text="weiter"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

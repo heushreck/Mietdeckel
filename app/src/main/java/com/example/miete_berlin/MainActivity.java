@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button start;
     private Button angaben;
+    private Button pdf;
     private TextView intro;
     private TextView titel;
 
@@ -39,13 +40,15 @@ public class MainActivity extends AppCompatActivity {
         angaben = findViewById(R.id.angaben);
         intro = findViewById(R.id.intro);
         titel = findViewById(R.id.titel);
+        pdf = findViewById(R.id.pdf);
         start.setTypeface(custom_font);
         angaben.setTypeface(custom_font);
         intro.setTypeface(custom_font);
         titel.setTypeface(custom_font);
+        pdf.setTypeface(custom_font);
 
         String text = "Ab Herbst 2020 sollen in Berlin „Wuchermieten“ abgesenkt werden können. Berechne jetzt, ob du Anspruch auf eine Mietabsenkung hättest und wie viel du monatlich sparen könntest.\n" +
-                "Das Ergebnis dient dir als Orientierung und ist ohne Gewähr. Deine eingegebenen Daten werden nicht gespeichert.";
+                "Das Ergebnis dient dir als Orientierung und ist ohne Gewähr.";
         intro.setText(text);
 
         start.setOnClickListener(new View.OnClickListener() {
@@ -58,10 +61,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        angaben.setOnClickListener(new View.OnClickListener() {
+        pdf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent theIntent = new Intent(MainActivity.this, pdf.class);
+                startActivity(theIntent);
+            }
+        });
+
+        angaben.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent theIntent = new Intent(MainActivity.this, finish.class);
                 startActivity(theIntent);
             }
         });
