@@ -1,6 +1,9 @@
 package com.example.miete_berlin;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,7 +11,10 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -32,11 +38,20 @@ public class decide extends AppCompatActivity {
     private TextView titel;
     private TextView step;
     private Button finish;
+    private ConstraintLayout mConstraintLayout;
+    private ConstraintSet mConstraintSet = new ConstraintSet();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_decide);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        if(height < 1300){
+            setContentView(R.layout.activity_decide_small);
+        } else {
+            setContentView(R.layout.activity_decide);
+        }
         Intent in = getIntent();
         Bundle b = in.getExtras();
         if(b!=null)
@@ -47,6 +62,7 @@ public class decide extends AppCompatActivity {
         Typeface custom_font = Typeface.createFromAsset(getAssets(),  "fonts/Montserrat-Regular.ttf");
 
 
+        mConstraintLayout = findViewById(R.id.decide_constraint_layout);
         ja = findViewById(R.id.ja);
         nein = findViewById(R.id.nein);
         antwort = findViewById(R.id.antwort_feld);
@@ -360,6 +376,33 @@ public class decide extends AppCompatActivity {
         finish.setVisibility(finish_int);
         help.setVisibility(help_int);
         help.setText(help_string);
+
+        ConstraintLayout.LayoutParams jaLayoutParams;
+        ConstraintLayout.LayoutParams neinLayoutParams;
+        int px8Value = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, decide.this.getResources().getDisplayMetrics());
+        int px32Value = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 32, decide.this.getResources().getDisplayMetrics());
+        int px48Value = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 48, decide.this.getResources().getDisplayMetrics());
+
+        if(wohnlage_int == 0){
+            jaLayoutParams = (ConstraintLayout.LayoutParams) ja.getLayoutParams();
+            jaLayoutParams.leftMargin = px8Value;
+            jaLayoutParams.topMargin = px32Value;
+            ja.setLayoutParams(jaLayoutParams);
+            neinLayoutParams = (ConstraintLayout.LayoutParams) nein.getLayoutParams();
+            neinLayoutParams.rightMargin = px8Value;
+            neinLayoutParams.topMargin = px32Value;
+            nein.setLayoutParams(neinLayoutParams);
+        } else {
+            jaLayoutParams = (ConstraintLayout.LayoutParams) ja.getLayoutParams();
+            jaLayoutParams.leftMargin = px48Value;
+            jaLayoutParams.topMargin = px32Value;
+            ja.setLayoutParams(jaLayoutParams);
+            neinLayoutParams = (ConstraintLayout.LayoutParams) nein.getLayoutParams();
+            neinLayoutParams.rightMargin = px48Value;
+            neinLayoutParams.topMargin = px32Value;
+            nein.setLayoutParams(neinLayoutParams);
+        }
+
     }
 
     private void setUp() {
@@ -398,7 +441,7 @@ public class decide extends AppCompatActivity {
                 help_setUp("Gibt es in meiner Wohnung eine hochwertige Sanitäreinrichtung?",0,"Ja",0,"Nein",4,"2",4,"", 4, 0, "Sanitäteinrichtung?");
                 break;
             case 11:
-                help_setUp("Gibt es in meiner Wohnung einen hochwertige Bodenbelag?",0,"Ja",0,"Nein",4,"2",4,"", 4, 4, "");
+                help_setUp("Gibt es in meiner Wohnung einen hochwertigen Bodenbelag?",0,"Ja",0,"Nein",4,"2",4,"", 4, 4, "");
                 break;
             case 12:
                 help_setUp("Hat mein Haus einen Energiekennwert von mehr als 120kWh/m² im Jahr?",0,"Ja",0,"Nein",4,"2",4,"", 4, 0, "Energiekennwert?");
