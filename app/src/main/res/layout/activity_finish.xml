@@ -75,18 +75,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hoch" />
 
-    <Button
-        android:id="@+id/print_pdf"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/rounded_corners"
-        android:padding="8dp"
-        android:text="Anwalt kontaktieren"
-        android:textAllCaps="false"
-        android:textColor="@android:color/black"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hoch" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

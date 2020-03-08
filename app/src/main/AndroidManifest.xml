@@ -1,34 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.miete_berlin">
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    package="com.heushreck.miete_berlin">
 
     <application
-        android:name=".MietDaten"
+        android:name="com.heushreck.miete_berlin.MietDaten"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".pdf"
+        <activity android:name="com.heushreck.miete_berlin.pdf"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar"></activity>
         <activity
-            android:name=".finish"
+            android:name="com.heushreck.miete_berlin.finish"
             android:screenOrientation="portrait"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName="com.heushreck.miete_berlin.MainActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
 
         <activity
-            android:name=".decide"
+            android:name="com.heushreck.miete_berlin.decide"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.heushreck.miete_berlin.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
